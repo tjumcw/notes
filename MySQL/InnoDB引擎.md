@@ -1,4 +1,4 @@
-# InnoDB引擎
+![image](https://github.com/tjumcw/notes/assets/106053649/30e335ec-6568-442f-95f8-58828edd1bd8)# InnoDB引擎
 
 # 逻辑存储结构
 
@@ -328,7 +328,7 @@ select * from user lock in share mode ;
 
 有一张原始表数据为
 
-![image-20240405214537467](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405214537467.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/7a7c8126-3624-499d-96b8-f53344b28d39)
 
 >DB_TRX_ID : 代表最近修改事务ID，记录插入这条记录或最后一次修改该记录的事务ID，是自增的。
 >
@@ -340,39 +340,39 @@ select * from user lock in share mode ;
 
 #### 第一步
 
-![image-20240405214628004](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405214628004.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/23f5a19b-6cb8-4f90-a5ec-533f51756fa3)
 
 >当事务2执行第一条修改语句时，会记录undo log日志，记录数据变更之前的样子; 
 >
 >然后更新记录，并且记录本次操作的事务ID，回滚指针，回滚指针用来指定如果发生回滚，回滚到哪一个版本。
 
-![image-20240405214703002](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405214703002.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/1d8342c0-22bc-47f7-aa05-8c5d14e65f95)
 
 
 
 #### 第二步
 
-![image-20240405214744607](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405214744607.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/a4018f8e-1ec5-4374-b0dc-eb5afb76969f)
 
 >当事务3执行第一条修改语句时，也会记录undo log日志，记录数据变更之前的样子; 
 >
 >然后更新记录，并且记录本次操作的事务ID，回滚指针，回滚指针用来指定如果发生回滚，回滚到哪一个版本。
 
-![image-20240405214808962](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405214808962.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/64a93883-c238-46e8-97be-fd7739a4ae45)
 
 
 
 #### 第三步
 
-![image-20240405214831271](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405214831271.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/94dc9fcc-98a8-4d92-b92f-7ee6677b73c3)
 
 >当事务4执行第一条修改语句时，也会记录undo log日志，记录数据变更之前的样子; 
 >
 >然后更新记录，并且记录本次操作的事务ID，回滚指针，回滚指针用来指定如果发生回滚，回滚到哪一个版本。
 
-![image-20240405214852627](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405214852627.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/ff7b3199-4a96-4207-8a63-bcad24a0f9b3)
 
->最终我们发现，不同事务或相同事务对同一条记录进行修改，会导致该记录的undolog生成一条记录版本链表
+>最终发现，不同事务或相同事务对同一条记录进行修改，会导致该记录的undolog生成一条记录版本链表
 >
 >链表的头部是最新的旧记录，链表尾部是最早的旧记录。
 
@@ -425,11 +425,11 @@ ReadView中包含了四个核心字段：
 - 在事务5中，查询了两次id为30的记录，由于隔离级别为Read Committed
 - 所以每一次进行快照读都会生成一个ReadView，那么两次生成的ReadView如下。
 
-![image-20240405215931039](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405215931039.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/36c43d19-af7b-4728-a070-081fbf010b6f)
 
 - 对应的undo log版本链及readview规则如下（针对第一次查询readview）
 
-![image-20240405220217339](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405220217339.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/4a2f7da2-76cd-47e1-9dec-69509143eece)
 
 >- 在进行匹配时，会从undo log的版本链，从上到下进行挨个匹配
 >
@@ -448,7 +448,7 @@ ReadView中包含了四个核心字段：
 >
 > 而RR 是可重复读，在一个事务中，执行两次相同的select语句，查询到的结果是一样的。
 
-![image-20240405220938399](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405220938399.png)
+![image](https://github.com/tjumcw/notes/assets/106053649/1ad78755-7d30-4d2e-9d3a-0fa94d7df198)
 
 >我们看到，在RR隔离级别下，只是在事务中第一次快照读时生成ReadView，后续都是复用该ReadView。
 >
