@@ -1,4 +1,4 @@
-![image](https://github.com/tjumcw/notes/assets/106053649/30e335ec-6568-442f-95f8-58828edd1bd8)# InnoDB引擎
+# InnoDB引擎
 
 # 逻辑存储结构
 
