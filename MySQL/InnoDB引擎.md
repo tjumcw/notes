@@ -2,8 +2,7 @@
 
 # 逻辑存储结构
 
-![image-20240405204018363](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20240405204018363.png)
-
+![image](https://github.com/tjumcw/notes/assets/106053649/2f74b506-8e6d-4acf-9754-c25098c5a0cd)
 
 
 表空间（ibd文件）：
